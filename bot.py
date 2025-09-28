@@ -18,12 +18,12 @@ async def start(update: Update, context: CallbackContext):
 async def handle_message(update: Update, context: CallbackContext):
     user_message = update.message.text
     try:
-        # OpenAI-এ পাঠান
-        response = openai.ChatCompletion.create(
+        # নতুন API ব্যবহার
+        response = openai.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": user_message}]
         )
-        bot_reply = response['choices'][0]['message']['content']
+        bot_reply = response.choices[0].message.content
         await update.message.reply_text(bot_reply)
     except Exception as e:
         await update.message.reply_text(f'এরর: {str(e)}')
